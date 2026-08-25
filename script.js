@@ -390,3 +390,34 @@ function initScrollProgress() {
     }, { passive: true });
 }
 initScrollProgress();
+
+// --- 11. Interactive 3D Card Parallax & Cursor Spotlight ---
+function initCardParallax() {
+    const container = document.getElementById('loginContainer');
+    if (!container) return;
+
+    container.addEventListener('mousemove', (e) => {
+        if (window.innerWidth <= 868) return;
+        const rect = container.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+
+        container.style.setProperty('--mouse-x', `${x}px`);
+        container.style.setProperty('--mouse-y', `${y}px`);
+
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        const rotateX = ((y - centerY) / centerY) * -4.5;
+        const rotateY = ((x - centerX) / centerX) * 4.5;
+
+        container.style.transform = `translate(-50%, -50%) perspective(1200px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+    });
+
+    container.addEventListener('mouseleave', () => {
+        if (window.innerWidth <= 868) return;
+        container.style.transform = `translate(-50%, -50%) perspective(1200px) rotateX(0deg) rotateY(0deg)`;
+        container.style.setProperty('--mouse-x', `50%`);
+        container.style.setProperty('--mouse-y', `50%`);
+    });
+}
+initCardParallax();

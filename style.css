@@ -77,11 +77,14 @@ body {
     letter-spacing: -0.5px;
     color: #ffffff;
     text-decoration: none;
-    transition: opacity 0.2s ease;
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), text-shadow 0.3s ease;
+    display: inline-flex;
+    align-items: center;
 }
 
 .site-header .logo:hover {
-    opacity: 0.8;
+    transform: scale(1.06) translateY(-1px);
+    text-shadow: 0 4px 16px rgba(0, 230, 118, 0.4);
 }
 
 .site-header .navbar {
@@ -93,15 +96,42 @@ body {
 .site-header .navbar a {
     font-size: 14.5px;
     font-weight: 600;
-    color: #e4e4e4;
+    color: #cbd5e1;
     text-decoration: none;
-    transition: color 0.2s ease;
     position: relative;
+    padding: 6px 2px;
+    transition: color 0.3s ease, transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-.site-header .navbar a:hover,
+.site-header .navbar a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 2.5px;
+    background: linear-gradient(90deg, #c4103d, #00e676, #00d2ff);
+    border-radius: 999px;
+    transition: width 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), left 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s ease;
+    opacity: 0;
+    box-shadow: 0 0 10px rgba(0, 230, 118, 0.6);
+}
+
+.site-header .navbar a:hover {
+    color: #ffffff;
+    transform: translateY(-2px);
+}
+
+.site-header .navbar a:hover::after,
+.site-header .navbar a.active::after {
+    width: 100%;
+    left: 0;
+    opacity: 1;
+}
+
 .site-header .navbar a.active {
     color: #ffffff;
+    font-weight: 700;
 }
 
 .site-header .nav-actions {
@@ -115,18 +145,21 @@ body {
     font-weight: 700;
     color: #ffffff;
     text-decoration: none;
-    transition: opacity 0.2s ease;
+    position: relative;
+    padding: 4px 0;
+    transition: color 0.25s ease, transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 .site-header .nav-login:hover,
 .site-header .nav-login.active {
-    color: #c4103d;
+    color: #00e676;
+    transform: translateY(-2px);
 }
 
 .site-header .nav-btn {
     background-color: #ffffff;
     color: #0c0c0c;
-    padding: 10px 22px;
+    padding: 10px 24px;
     border-radius: 999px;
     font-size: 13.5px;
     font-weight: 700;
@@ -134,12 +167,38 @@ body {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    transition: transform 0.2s ease, background-color 0.2s ease;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.site-header .nav-btn::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -120%;
+    width: 60%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5), transparent);
+    transform: skewX(-25deg);
+    transition: left 0.65s cubic-bezier(0.2, 0.8, 0.2, 1);
+    pointer-events: none;
+}
+
+.site-header .nav-btn:hover::before {
+    left: 140%;
 }
 
 .site-header .nav-btn:hover {
-    background-color: #e0e0e0;
-    transform: translateY(-1px);
+    background-color: #0d7777;
+    color: #ffffff;
+    transform: translateY(-2.5px);
+    box-shadow: 0 8px 22px rgba(13, 119, 119, 0.5);
+}
+
+.site-header .nav-btn:active {
+    transform: translateY(0);
 }
 
 .background {
@@ -154,6 +213,47 @@ body {
     filter: blur(10px);
     z-index: -1;
     pointer-events: none;
+}
+
+/* Ambient Floating Atmosphere Orbs */
+.ambient-orb {
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(80px);
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.45;
+    will-change: transform;
+}
+
+.ambient-orb-1 {
+    width: 380px;
+    height: 380px;
+    background: radial-gradient(circle, #0d7777 0%, rgba(13, 119, 119, 0) 70%);
+    top: 15%;
+    left: 8%;
+    animation: orbFloat1 18s ease-in-out infinite alternate;
+}
+
+.ambient-orb-2 {
+    width: 440px;
+    height: 440px;
+    background: radial-gradient(circle, #c4103d 0%, rgba(196, 16, 61, 0) 70%);
+    bottom: 10%;
+    right: 8%;
+    animation: orbFloat2 22s ease-in-out infinite alternate;
+}
+
+@keyframes orbFloat1 {
+    0% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(60px, 40px) scale(1.15); }
+    100% { transform: translate(-30px, 70px) scale(0.95); }
+}
+
+@keyframes orbFloat2 {
+    0% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(-70px, -50px) scale(1.2); }
+    100% { transform: translate(40px, -30px) scale(0.9); }
 }
 
 @keyframes containerFadeSlide {
@@ -177,9 +277,23 @@ body {
     background: url('destination-backgroung.jpg') no-repeat;
     background-size: cover;
     background-position: center;
-    border-radius: 15px;
+    border-radius: 16px;
     margin-top: 20px;
     animation: containerFadeSlide 0.85s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.55), 0 0 30px rgba(13, 119, 119, 0.15);
+    transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.3s ease;
+    z-index: 1;
+}
+
+.container::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 16px;
+    background: radial-gradient(600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255, 255, 255, 0.08), transparent 40%);
+    pointer-events: none;
+    z-index: 1;
 }
 
 .container::before {
@@ -204,10 +318,22 @@ body {
     color: #e4e4e4;
 }
 
+@keyframes welcomeFadeUp {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 .container .content .logo {
     font-size: 30px;
     color: #ffffff;
     letter-spacing: -0.5px;
+    animation: welcomeFadeUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both;
 }
 
 .container .content .text-sci {
@@ -218,6 +344,7 @@ body {
     font-size: 40px;
     padding-top: 10px;
     color: #ffffff;
+    animation: welcomeFadeUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
 }
 
 .container .content .text-sci h2 span {
@@ -229,17 +356,33 @@ body {
     font-size: 16px;
     margin: 20px 0;
     color: #e4e4e4;
+    animation: welcomeFadeUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.3s both;
+}
+
+.container .content .text-sci .social-icons {
+    animation: welcomeFadeUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.4s both;
+}
+
+.container .content .text-sci .social-icons a {
+    display: inline-block;
+    transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.container .content .text-sci .social-icons a:hover {
+    transform: translateY(-4px);
 }
 
 .container .content .text-sci .social-icons a i {
     font-size: 22px;
     color: #e4e4e4;
-    margin-right: 10px;
-    transition: .4s ease-in-out;
+    margin-right: 12px;
+    transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), color 0.3s ease, filter 0.3s ease;
 }
 
 .container .content .text-sci .social-icons a:hover i {
-    transform: scale(1.4);
+    transform: scale(1.25);
+    color: #00e676;
+    filter: drop-shadow(0 0 10px rgba(0, 230, 118, 0.7));
 }
 
 .container .logreg-box {
@@ -296,16 +439,30 @@ body {
 .container .logreg-box .form-box .input-box {
     width: 350px;
     height: 48px;
-    border-bottom: 2px solid #e4e4e4;
+    border-bottom: 2px solid rgba(228, 228, 228, 0.3);
     margin: 20px 0;
     position: relative;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    transition: border-color 0.3s ease;
 }
 
-.container .logreg-box .form-box .input-box.focus,
-.container .logreg-box .form-box .input-box:focus-within {
-    border-bottom-color: #0d7777;
-    box-shadow: 0 4px 10px rgba(13, 119, 119, 0.25);
+.container .logreg-box .form-box .input-box::after {
+    content: "";
+    position: absolute;
+    bottom: -2px;
+    left: 50%;
+    width: 0%;
+    height: 2.5px;
+    background: linear-gradient(90deg, #0d7777, #00e676, #00d2ff);
+    box-shadow: 0 0 10px rgba(0, 230, 118, 0.5);
+    transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1), left 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    pointer-events: none;
+    border-radius: 2px;
+}
+
+.container .logreg-box .form-box .input-box.focus::after,
+.container .logreg-box .form-box .input-box:focus-within::after {
+    width: 100%;
+    left: 0;
 }
 
 .container .logreg-box .form-box .input-box.error {
@@ -364,13 +521,14 @@ body {
     right: 0;
     font-size: 20px;
     pointer-events: none;
-    transition: transform 0.3s ease, color 0.3s ease;
+    transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), color 0.3s ease, filter 0.3s ease;
 }
 
 .container .logreg-box .form-box .input-box.focus .icon i,
 .container .logreg-box .form-box .input-box:focus-within .icon i {
     color: #00e676;
-    transform: scale(1.15);
+    transform: scale(1.22);
+    filter: drop-shadow(0 0 8px rgba(0, 230, 118, 0.65));
 }
 
 .container .logreg-box .form-box .input-box .pwd-toggle {
@@ -424,7 +582,7 @@ body {
 .container .logreg-box .form-box .btn {
     width: 100%;
     height: 46px;
-    background-color: #c4103d;
+    background: linear-gradient(135deg, #c4103d 0%, #a80d34 100%);
     border: none;
     outline: none;
     border-radius: 6px;
@@ -433,7 +591,7 @@ body {
     font-size: 16.5px;
     color: #fff;
     font-weight: 700;
-    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease, background 0.3s ease;
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -442,10 +600,26 @@ body {
     overflow: hidden;
 }
 
+.container .logreg-box .form-box .btn::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -120%;
+    width: 60%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.35), transparent);
+    transform: skewX(-25deg);
+    transition: left 0.75s cubic-bezier(0.2, 0.8, 0.2, 1);
+    pointer-events: none;
+}
+
+.container .logreg-box .form-box .btn:hover::before {
+    left: 140%;
+}
+
 .container .logreg-box .form-box .btn:hover {
-    background-color: #a80d34;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 25px rgba(196, 16, 61, 0.65);
+    transform: translateY(-2.5px);
+    box-shadow: 0 8px 25px rgba(196, 16, 61, 0.65), 0 0 15px rgba(196, 16, 61, 0.4);
 }
 
 .container .logreg-box .form-box .btn:active {
