@@ -2,24 +2,33 @@
 <html>
 
 <head>
-    <title>Login & Registration Form</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Traveler Portal | Travel_X — Login & Register</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;0,800;0,900;1,600;1,700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 </head>
 
 <body>
-    <header class="header">
-        <nav class="navbar">
-            <a href="file:///C:/Users/yatha/OneDrive/Documents/Tour_&_Travels/Tour&Travel.html#">Home</a>
-            <a href="">About</a>
-            <a href="">Services</a>
-            <a href="">Contact</a>
-        </nav>
+    <header id="header" class="site-header">
+        <div class="nav-container">
+            <a href="../Tour&Travel.html" class="logo">Travel_X</a>
 
-        <from action="#" class="search-bar">
-            <input type="text" placeholder="Search...">
-            <button type="submit"><i class='bx bx-search'></i></button>
-        </from>
+            <nav class="navbar">
+                <a href="../Tour&Travel.html#why-us">Why Travel_X?</a>
+                <a href="../Destination/Destinations.html">Destinations</a>
+                <a href="../Tour&Travel.html#packages">Packages</a>
+                <a href="../FAQ_s/FAQ_Page.html">Support</a>
+            </nav>
+
+            <div class="nav-actions">
+                <a href="Login_&_Registration.html" class="nav-login active">Login</a>
+                <a href="../Tour&Travel.html#footer" class="nav-btn">Contact Us</a>
+            </div>
+        </div>
     </header>
 
     <div class="background"></div>
@@ -38,37 +47,40 @@
                 </p>
 
                 <div class="social-icons">
-                    <a href="https://store.steampowered.com/" target="_blank"> <i class='bx bxl-steam'> </i></a>
-                    <a href="https://www.facebook.com/" target="_blank"> <i class='bx bxl-facebook'> </i></a>
-                    <a href="https://www.instagram.com/" target="_blank"> <i class='bx bxl-instagram' ></i></a>
-                    <a href="https://www.youtube.com/" target="_blank"> <i class='bx bxl-youtube' > </i></a>
+                    <a href="https://www.facebook.com/" target="_blank" aria-label="Facebook"> <i class='bx bxl-facebook'> </i></a>
+                    <a href="https://www.instagram.com/" target="_blank" aria-label="Instagram"> <i class='bx bxl-instagram' ></i></a>
+                    <a href="https://www.youtube.com/" target="_blank" aria-label="YouTube"> <i class='bx bxl-youtube' > </i></a>
                 </div>
             </div>
         </div>
 
         <div class="logreg-box">
             <div class="form-box login">
-                <form action="#">
+                <form id="loginForm" action="#" method="POST" novalidate>
                     <h2>Login</h2>
 
                     <div class="input-box">
                         <span class="icon"> <i class='bx bxs-envelope'></i> </span>
-                        <input type="email" required>
+                        <input type="email" id="loginEmail" name="email" placeholder=" " required autocomplete="username email">
                         <label>Email</label>
                     </div>
 
                     <div class="input-box">
+                        <span class="pwd-toggle" title="Toggle password visibility"> <i class='bx bx-show'></i> </span>
                         <span class="icon"> <i class='bx bxs-lock-alt' ></i> </span>
-                        <input type="password" required>
+                        <input type="password" id="loginPassword" name="password" placeholder=" " required autocomplete="current-password">
                         <label>Password</label>
                     </div>
 
                     <div class="remember-forget">
-                        <label> <input type="checkbox"> Remember Me </label> 
-                        <a href="#">Forget Password?</a>
+                        <label> <input type="checkbox" id="rememberMe" name="remember"> Remember Me </label> 
+                        <a href="#" id="forgotPasswordLink">Forget Password?</a>
                     </div>
 
-                    <button class="btn" type="submit"> Login </button>
+                    <button class="btn" type="submit" id="loginBtn">
+                        <span class="btn-spinner"></span>
+                        <span class="btn-text">Login</span>
+                    </button>
 
                     <div class="login-register">
                         <p>Don't have an account?
@@ -79,32 +91,36 @@
             </div>
 
             <div class="form-box register">
-                <form action="#">
+                <form id="registerForm" action="#" method="POST" novalidate>
                     <h2>Register</h2>
 
                     <div class="input-box">
                         <span class="icon"> <i class='bx bxs-user'></i> </span>
-                        <input type="text" required>
+                        <input type="text" id="registerName" name="name" placeholder=" " required autocomplete="name">
                         <label>Name</label>
                     </div>
 
                     <div class="input-box">
                         <span class="icon"> <i class='bx bxs-envelope'></i> </span>
-                        <input type="email" required>
+                        <input type="email" id="registerEmail" name="email" placeholder=" " required autocomplete="email">
                         <label>Email</label>
                     </div>
 
                     <div class="input-box">
+                        <span class="pwd-toggle" title="Toggle password visibility"> <i class='bx bx-show'></i> </span>
                         <span class="icon"> <i class='bx bxs-lock-alt' ></i> </span>
-                        <input type="password" required>
+                        <input type="password" id="registerPassword" name="password" placeholder=" " required autocomplete="new-password">
                         <label>Password</label>
                     </div>
 
                     <div class="remember-forget">
-                        <label> <input type="checkbox"> I agree to the terms & conditions </label> 
+                        <label> <input type="checkbox" id="agreeTerms" name="terms" required> I agree to the terms & conditions </label> 
                     </div>
 
-                    <button class="btn" type="submit"> Register </button>
+                    <button class="btn" type="submit" id="registerBtn">
+                        <span class="btn-spinner"></span>
+                        <span class="btn-text">Register</span>
+                    </button>
 
                     <div class="login-register">
                         <p>Already have an account?
@@ -116,5 +132,9 @@
         </div>
     </div>
 
+    <!-- Alert Toast Notification Container -->
+    <div class="alert-toast-container" id="alertToastContainer"></div>
+
     <script src="script.js"></script>
 </body>
+</html>
